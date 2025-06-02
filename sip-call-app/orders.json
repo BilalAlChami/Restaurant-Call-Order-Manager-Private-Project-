@@ -1,0 +1,42 @@
+[ {
+  "orderId" : "5823dd6f-911f-4f76-a37e-fec13aac11d2",
+  "contactPhoneNumber" : "0516556561",
+  "orderTimestamp" : "2025-06-01 22:58:03",
+  "items" : [ {
+    "menuItemId" : "22",
+    "quantity" : 1,
+    "customizations" : "Schafkäse",
+    "basePriceSnapshot" : 9.0,
+    "sizeMultiplierUsed" : 1.0,
+    "customizationPriceAdjustmentUsed" : 1.0
+  }, {
+    "menuItemId" : "G1",
+    "quantity" : 1,
+    "customizations" : "",
+    "basePriceSnapshot" : 2.0,
+    "sizeMultiplierUsed" : 1.0,
+    "customizationPriceAdjustmentUsed" : 0.0
+  }, {
+    "menuItemId" : "1",
+    "quantity" : 1,
+    "customizations" : "",
+    "basePriceSnapshot" : 6.5,
+    "sizeMultiplierUsed" : 1.0,
+    "customizationPriceAdjustmentUsed" : 0.0
+  }, {
+    "menuItemId" : "49",
+    "quantity" : 1,
+    "customizations" : "Mit Pommes (Standard)",
+    "basePriceSnapshot" : 12.0,
+    "sizeMultiplierUsed" : 1.0,
+    "customizationPriceAdjustmentUsed" : 0.0
+  } ],
+  "subTotal" : 30.5,
+  "taxAmount7" : 1.8644859813084114,
+  "taxAmount19" : 0.319327731092437,
+  "deliveryCharge" : 0.0,
+  "extraCharge" : 0.0,
+  "notes" : "",
+  "driverName" : "Renault",
+  "totalAmount" : 30.5
+} ]

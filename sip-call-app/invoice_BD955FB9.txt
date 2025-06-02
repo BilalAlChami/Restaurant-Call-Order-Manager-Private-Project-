@@ -1,0 +1,39 @@
+=========================================
+             RECHNUNG - MAIN DÖNER       
+=========================================
+Steinheimer Straße 69A
+63500 Seligenstadt
+Tel. 06182 8958623
+-----------------------------------------
+Bestell-Nr.: BD955FB9
+Datum: 23.05.2025 19:35:51
+-----------------------------------------
+Kundeninformationen:
+Name: ee
+Adresse: ggg
+Telefon: ttt
+Anzahl Kinder: 0
+-----------------------------------------
+Anz. Artikel                   Einzel Gesamt 
+-----------------------------------------
+1  Döner mit Pommes und Softdrink 10.00 10.00  
+1  Pizza Döner mit Softdrink 10.00 10.00  
+1  Cheeseburger mit Pommes und Softdrink 10.00 10.00  
+1  Dürüm Döner mit Käse      7.50  7.50   
+-----------------------------------------
+Zwischensumme:          37.50 EUR
+Steuer 7%:               2.63 EUR
+Steuer 19%:              0.00 EUR
+=========================================
+GESAMTBETRAG:           40.13 EUR
+=========================================
+Bezahlmethode: Bar
+
+Vielen Dank für Ihre Bestellung!
+-----------------------------------------
+Steuer enthalten
+A= 7.00%: 2.63 EUR (Netto 37.50 EUR)
+B=19.00%: 0.00 EUR (Netto 0.00 EUR)
+-----------------------------------------
+Anzahl Teile: 4
+-----------------------------------------

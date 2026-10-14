@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.ArrayList; // Added for wrapText
+import java.util.ArrayList; 
 
 public class Invoice {
     private String invoiceId;
@@ -46,7 +46,7 @@ public class Invoice {
 
     private String padRight(String text, int width) {
         if (text == null) text = "";
-        return String.format("%-" + width + "." + width + "s", text); // Ensure truncation if too long
+        return String.format("%-" + width + "." + width + "s", text); 
     }
 
     private String padLeft(String text, int width) {
@@ -101,9 +101,6 @@ public class Invoice {
         int qtyWidth = 3;
         int singlePriceWidth = 7;
         int totalItemPriceWidth = 7;
-        // Adjust itemColWidth based on actual characters, not just (pageWidth - others)
-        // Example: "Mge Artikel Einzel Gesamt" -> 3 + 1 + X + 1 + 7 + 1 + 7 = pageWidth
-        // X = pageWidth - 3 - 1 - 1 - 7 - 1 - 7 = pageWidth - 20
         int itemColWidth = pageWidth - qtyWidth - 1 - singlePriceWidth - 1 - totalItemPriceWidth - 1;
 
 
@@ -126,16 +123,16 @@ public class Invoice {
                                 .append(padRight(itemNameLines.get(i), itemColWidth)).append(" ")
                                 .append(padLeft(String.format(Locale.GERMANY, "%.2f", item.getItemPrice()), singlePriceWidth)).append(" ")
                                 .append(padLeft(String.format(Locale.GERMANY, "%.2f", item.getTotalPrice()), totalItemPriceWidth)).append("\n");
-                    } else { // Subsequent lines of item name
-                        sb.append(padRight("", qtyWidth)).append(" ") // Empty space for qty
+                    } else { 
+                        sb.append(padRight("", qtyWidth)).append(" ") 
                                 .append(padRight(itemNameLines.get(i), itemColWidth)).append("\n");
                     }
                 }
 
                 if (customizations != null && !customizations.isEmpty()) {
-                    List<String> wrappedCust = wrapText("  (" + customizations + ")", itemColWidth); // Indent customizations
+                    List<String> wrappedCust = wrapText("  (" + customizations + ")", itemColWidth); 
                     for (String custPart : wrappedCust) {
-                        sb.append(padRight("", qtyWidth)).append(" ") // Empty space for qty
+                        sb.append(padRight("", qtyWidth)).append(" ") 
                                 .append(padRight(custPart, itemColWidth)).append("\n");
                     }
                 }
@@ -183,7 +180,7 @@ public class Invoice {
         }
 
         sb.append(centerText("Alle Preise inkl. gesetzl. MwSt.", pageWidth)).append("\n");
-        if (Math.abs(totalTax7) > 0.005) { // Use Math.abs for small values near zero
+        if (Math.abs(totalTax7) > 0.005) { 
             sb.append(String.format(Locale.GERMANY, "Enth. MwSt.  7%%: %6.2f (Net %6.2f)\n", totalTax7, totalNet7));
         }
         if (Math.abs(totalTax19) > 0.005) {
@@ -210,7 +207,7 @@ public class Invoice {
     private List<String> wrapText(String text, int maxWidth) {
         List<String> lines = new ArrayList<>();
         if (text == null || text.isEmpty()) {
-            lines.add(""); // Add an empty line if text is null or empty to maintain structure
+            lines.add(""); 
             return lines;
         }
 
@@ -218,8 +215,8 @@ public class Invoice {
         StringBuilder currentLine = new StringBuilder();
 
         for (String word : words) {
-            if (currentLine.length() == 0) { // First word on the line
-                if (word.length() > maxWidth) { // Word itself is too long
+            if (currentLine.length() == 0) { 
+                if (word.length() > maxWidth) { 
                     int offset = 0;
                     while(offset < word.length()){
                         lines.add(word.substring(offset, Math.min(offset + maxWidth, word.length())));
@@ -228,12 +225,12 @@ public class Invoice {
                 } else {
                     currentLine.append(word);
                 }
-            } else if (currentLine.length() + 1 + word.length() <= maxWidth) { // Word fits with a space
+            } else if (currentLine.length() + 1 + word.length() <= maxWidth) { 
                 currentLine.append(" ").append(word);
             } else { // Word doesn't fit, start new line
                 lines.add(currentLine.toString());
                 currentLine = new StringBuilder();
-                if (word.length() > maxWidth) { // New word is too long
+                if (word.length() > maxWidth) { 
                     int offset = 0;
                     while(offset < word.length()){
                         lines.add(word.substring(offset, Math.min(offset + maxWidth, word.length())));
@@ -247,7 +244,7 @@ public class Invoice {
         if (currentLine.length() > 0) {
             lines.add(currentLine.toString());
         }
-        if (lines.isEmpty()) { // Ensure at least one line, even if empty, if original text was not empty but only spaces
+        if (lines.isEmpty()) { 
             lines.add("");
         }
         return lines;

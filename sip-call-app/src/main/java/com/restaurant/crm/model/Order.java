@@ -14,7 +14,7 @@ public class Order {
     private String contactPhoneNumber;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderTimestamp;
-    private List<OrderItemSerializationWrapper> items; // Verwendet den erweiterten Wrapper
+    private List<OrderItemSerializationWrapper> items; r
     private double subTotal;
     private double taxAmount7;
     private double taxAmount19;
@@ -43,7 +43,7 @@ public class Order {
         this.contactPhoneNumber = contactPhoneNumber;
     }
 
-    // Getters and Setters (JsonProperty Annotationen sind wichtig für Jackson)
+    // Getters and Setters
     @JsonProperty("orderId")
     public String getOrderId() { return orderId; }
     public void setOrderId(String orderId) { this.orderId = orderId; }
@@ -58,11 +58,10 @@ public class Order {
 
     @JsonProperty("items")
     public List<OrderItemSerializationWrapper> getItems() {
-        // Konvertiere runtime OrderItems zu Wrappern für die Serialisierung
         this.items.clear();
         if (this.orderItemsRuntime != null) {
             for (OrderItem oi : this.orderItemsRuntime) {
-                this.items.add(new OrderItemSerializationWrapper(oi)); // Übergibt das OrderItem
+                this.items.add(new OrderItemSerializationWrapper(oi)); 
             }
         }
         return items;
@@ -84,7 +83,6 @@ public class Order {
     public double getSubTotal() { return subTotal; }
     public void setSubTotal(double subTotal) { this.subTotal = subTotal; }
 
-    // ... (Restliche Getter/Setter für taxAmount, deliveryCharge, extraCharge, notes, driverName) ...
     @JsonProperty("taxAmount7")
     public double getTaxAmount7() { return taxAmount7; }
     public void setTaxAmount7(double taxAmount7) { this.taxAmount7 = taxAmount7; }
@@ -153,7 +151,6 @@ public class Order {
             for (OrderItem item : orderItemsRuntime) {
                 double itemTotal = item.getTotalPrice(); // Holt den korrekten Gesamtpreis des OrderItems
                 currentSubTotal += itemTotal;
-                // Steuerberechnung basierend auf dem Brutto-Gesamtpreis des Items
                 if (item.getMenuItem().getTaxRate() == 0.07) {
                     currentTax7 += itemTotal / 1.07 * 0.07;
                 } else if (item.getMenuItem().getTaxRate() == 0.19) {
@@ -168,19 +165,16 @@ public class Order {
         this.setTotalAmount(this.subTotal + this.deliveryCharge + this.extraCharge);
     }
 
-    // ERWEITERTER OrderItemSerializationWrapper
     public static class OrderItemSerializationWrapper {
         private String menuItemId;
         private int quantity;
         private String customizations;
-        // NEU: Felder zum Speichern der Preiskomponenten
-        private double basePriceSnapshot; // Der Basispreis, der für dieses Item galt (kann der absolute Preis sein)
+        private double basePriceSnapshot; 
         private double sizeMultiplierUsed;
         private double customizationPriceAdjustmentUsed;
 
         public OrderItemSerializationWrapper() {}
 
-        // Konstruktor, der ein OrderItem entgegennimmt
         public OrderItemSerializationWrapper(OrderItem orderItem) {
             this.menuItemId = orderItem.getMenuItem().getId();
             this.quantity = orderItem.getQuantity();
@@ -191,7 +185,6 @@ public class Order {
             this.customizationPriceAdjustmentUsed = orderItem.getCustomizationPriceAdjustment();
         }
 
-        // Getter und Setter für alle Felder (wichtig für Jackson)
         public String getMenuItemId() { return menuItemId; }
         public void setMenuItemId(String menuItemId) { this.menuItemId = menuItemId; }
         public int getQuantity() { return quantity; }

@@ -154,7 +154,6 @@ public class MainController {
         loadContactsTable();
     }
 
-    // ... (Rest der Methoden bleibt gleich bis populateMenuTabs) ...
     private void logMessage(String message) {
         if (logTextArea != null && logTextArea.isVisible() && logTextArea.getScene() != null) {
             logTextArea.appendText(message + "\n");
@@ -197,7 +196,7 @@ public class MainController {
         currentOrder = new Order(null);
 
         setupOrderTableColumns();
-        populateMenuTabs(); // Hier wird die TabClosingPolicy gesetzt
+        populateMenuTabs(); 
 
         deliveryChargeField.textProperty().addListener((obs, oldVal, newVal) -> updateDeliveryCharge(newVal));
         extraChargeOrderField.textProperty().addListener((obs, oldVal, newVal) -> updateExtraCharge(newVal));
@@ -461,7 +460,6 @@ public class MainController {
 
         Map<String, List<MenuItem>> menuByCategory = menuService.getMenuItemsByCategory();
 
-        // Ihre gewünschte Reihenfolge der Kategorien
         List<String> desiredCategoryOrder = Arrays.asList(
                 "Angebote", "Döner", "Lahmacun", "Falafel", "Pide", "Calzone", "Flammkuchen",
                 "Salate", "Snacks", "Schnitzel", "Vorspeisen", "Rollos", "Pizza",
@@ -470,7 +468,6 @@ public class MainController {
 
         Set<String> processedCategories = new HashSet<>();
 
-        // Zuerst die Tabs in der gewünschten Reihenfolge hinzufügen
         for (String categoryName : desiredCategoryOrder) {
             if (menuByCategory.containsKey(categoryName)) {
                 List<MenuItem> items = menuByCategory.get(categoryName);
@@ -584,41 +581,31 @@ public class MainController {
         currentDisplayedContact = null;
     }
 
-    // Existing imports in MainController.java
-
-// ... other fields and methods ...
-
     private void fetchAddressSuggestions(String query) {
         if (query == null) {
             addressSuggestionsPopup.hide();
             return;
         }
         final String finalQuery = query.trim();
-        final String plzPattern = "\\d{5}"; // German PLZ is 5 digits
+        final String plzPattern = "\\d{5}";
 
         // If the query is exactly a 5-digit PLZ
         if (finalQuery.matches(plzPattern)) {
             new Thread(() -> {
-                // Try to find the city for this PLZ
-                String city = addressSuggestionService.getCityForPlz(finalQuery); // New method in AddressSuggestionService
+                String city = addressSuggestionService.getCityForPlz(finalQuery); 
                 Platform.runLater(() -> {
                     if (city != null && !city.isEmpty()) {
                         String newText = finalQuery + " " + city + " ";
-                        // Temporarily remove listener to prevent immediate re-triggering from setText
-                        // This can be tricky; a flag or more sophisticated state management might be better
-                        // For now, direct call to playFromStart on debounce might be simpler if setText triggers it reliably.
                         addressField.setText(newText);
                         addressField.positionCaret(newText.length());
-                        addressSuggestionsPopup.hide(); // Hide any previous suggestions
-                        // Re-trigger suggestions for "PLZ City "
-                        addressDebounce.playFromStart(); // This will call fetchAddressSuggestions with the new query
+                        addressSuggestionsPopup.hide(); 
+                        addressDebounce.playFromStart(); 
                     } else {
-                        // PLZ not found, or no specific city, show generic suggestions for the PLZ query
                         showAddressSuggestionsForQuery(finalQuery);
                     }
                 });
             }).start();
-        } else if (finalQuery.length() >= 3) { // General search for queries of 3+ chars
+        } else if (finalQuery.length() >= 3) { 
             showAddressSuggestionsForQuery(finalQuery);
         } else { // Query is too short for general search and not a full PLZ
             addressSuggestionsPopup.hide();
@@ -628,8 +615,6 @@ public class MainController {
     // Helper method to show address suggestions, extracted for reusability
     private void showAddressSuggestionsForQuery(String query) {
         new Thread(() -> {
-            // This existing method in AddressSuggestionService already handles case-insensitivity
-            // for street names or any part of the address string "PLZ Stadt Straßenname".
             List<String> suggestions = addressSuggestionService.getAddressSuggestions(query); //
             Platform.runLater(() -> {
                 if (!suggestions.isEmpty() && addressField.isFocused()) {
@@ -652,9 +637,7 @@ public class MainController {
             });
         }).start();
     }
-
-// ... rest of MainController.java ...
-
+    
     private void displayContact(Contact contact) {
         phoneNumberField.setText(contact.getPhoneNumber());
         nameField.setText(contact.getName());

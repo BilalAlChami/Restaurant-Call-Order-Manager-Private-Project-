@@ -7,10 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CustomizationData {
-
-    // Options-Format: "Anzeigetext :: TYP :: [RadioGruppenName] :: [ModifikatorOderWert]"
-
-    // Bestehende Definitionen (gekürzt zur Übersicht, bitte Ihre volle Version beibehalten)
     public static final Map<String, List<String>> DOENER_OPTIONS = new LinkedHashMap<>();
     static {
         DOENER_OPTIONS.put("Soßen (Mehrfachauswahl)", Arrays.asList("Kräutersoße :: CHK", "Knoblauchsoße :: CHK", "Scharfe Soße :: CHK", "Cocktailsoße :: CHK", "Ohne Soße :: CHK"));
@@ -26,7 +22,7 @@ public class CustomizationData {
     public static final Map<String, List<String>> LAHMACUN_OPTIONS = new LinkedHashMap<>(FALAFEL_SAUCE_OPTIONS); // Verwendet Falafel-Soßen
     static { LAHMACUN_OPTIONS.put("Salat-Anpassungen (Weglassen)", DOENER_OPTIONS.get("Salat-Anpassungen (Weglassen)")); LAHMACUN_OPTIONS.put("Extras für Lahmacun", List.of("Mit Dönerfleisch :: CHK_PRICE :: +1.50")); LAHMACUN_OPTIONS.put("Benutzerdefiniertes Extra", List.of(" :: CUSTOM_EXTRA"));}
 
-    // Optionen für Pomm Döner (Reis oder Bulgur) - ID "08"
+    // Optionen für Pomm Döner (Reis oder Bulgur)
     public static final Map<String, List<String>> POMM_DOENER_08_OPTIONS = new LinkedHashMap<>();
     static {
         POMM_DOENER_08_OPTIONS.put("Soßen (Mehrfachauswahl)", DOENER_OPTIONS.get("Soßen (Mehrfachauswahl)")); // Standard Döner Soßen
@@ -44,7 +40,7 @@ public class CustomizationData {
     public static final Map<String, List<String>> ANGEBOTE_OPTIONS = new LinkedHashMap<>(); // Allgemeine Optionen für Angebote
     static { ANGEBOTE_OPTIONS.put("Anmerkung zum Angebot", List.of(" :: NOTE")); ANGEBOTE_OPTIONS.put("Benutzerdefiniertes Extra", List.of(" :: CUSTOM_EXTRA"));}
 
-    // --- PIZZA OPTIONEN (Standard) ---
+    // --- PIZZA OPTIONEN  ---
     public static final Map<String, List<String>> PIZZA_OPTIONS = new LinkedHashMap<>();
     static {
         PIZZA_OPTIONS.put("Größe wählen", Arrays.asList(
@@ -56,14 +52,13 @@ public class CustomizationData {
         PIZZA_OPTIONS.put("Benutzerdefiniertes Extra", List.of(" :: CUSTOM_EXTRA"));
     }
 
-    // --- NEU: Optionen für Döner Pizza (ID "66" und "A4") ---
+    // --- Optionen für Döner Pizza  ---
     public static final Map<String, List<String>> DOENER_PIZZA_OPTIONS = new LinkedHashMap<>();
     static {
-        DOENER_PIZZA_OPTIONS.put("Soßen (Mehrfachauswahl)", DOENER_OPTIONS.get("Soßen (Mehrfachauswahl)")); // Nur Soßenauswahl
-        // Optional: DOENER_PIZZA_OPTIONS.put("Notiz zur Döner Pizza", List.of(" :: NOTE"));
+        DOENER_PIZZA_OPTIONS.put("Soßen (Mehrfachauswahl)", DOENER_OPTIONS.get("Soßen (Mehrfachauswahl)")); 
     }
 
-    // --- NEU: Optionen für Sigara Böreği (ID "50", "V1") ---
+    // --- Optionen für Sigara Böreği  ---
     public static final Map<String, List<String>> SIGARA_BOEREGI_OPTIONS = new LinkedHashMap<>();
     static {
         SIGARA_BOEREGI_OPTIONS.put("Soßen (Mehrfachauswahl)", DOENER_OPTIONS.get("Soßen (Mehrfachauswahl)")); // Standard Döner Soßen
@@ -84,7 +79,6 @@ public class CustomizationData {
                 "Mit Bulgur :: RADIO :: BEILAGE_SCHNITZEL",
                 "Mit Knoblauchkartoffeln :: RADIO :: BEILAGE_SCHNITZEL"
         ));
-        // Optional: SCHNITZEL_OPTIONS.put("Soßen für Schnitzel", Arrays.asList("Ohne Soße :: CHK", "Extra Jägersoße :: CHK_PRICE :: +1.00", "Extra Rahmsoße :: CHK_PRICE :: +1.00"));
         SCHNITZEL_OPTIONS.put("Benutzerdefiniertes Extra", List.of(" :: CUSTOM_EXTRA"));
     }
 
@@ -106,16 +100,16 @@ public class CustomizationData {
         if (id.equals("49") || id.startsWith("SC")) return SCHNITZEL_OPTIONS; // Alle Schnitzel
 
         // Fallback auf Kategorie, wenn keine spezifische ID passt
-        if (category.equals("angebote")) return ANGEBOTE_OPTIONS; // Allgemeine Angebotsoptionen, wenn nicht spezifischer (wie A4)
+        if (category.equals("angebote")) return ANGEBOTE_OPTIONS; 
         if (category.contains("lahmacun")) return LAHMACUN_OPTIONS;
-        if (id.matches("^(18|19)$")) return FALAFEL_OPTIONS; // Falafel Sandwich/Dürüm (nicht Teller)
+        if (id.matches("^(18|19)$")) return FALAFEL_OPTIONS; 
         if (category.contains("pide") || category.contains("calzone")) return PIDE_CALZONE_OPTIONS;
-        if (category.contains("pizza")) return PIZZA_OPTIONS; // Standard Pizza Optionen für alle anderen Pizzen
+        if (category.contains("pizza")) return PIZZA_OPTIONS; 
 
-        return Collections.emptyMap(); // Keine Optionen, wenn nichts zutrifft
+        return Collections.emptyMap(); 
     }
 
-    // Fallback-Methode, falls menuItem null ist (sollte selten vorkommen)
+    // Fallback-Methode, falls menuItem null ist 
     private static Map<String, List<String>> getOptionsForCategoryFallback(String categoryKey) {
         String k = categoryKey.toLowerCase();
         if (k.equals("angebote")) return ANGEBOTE_OPTIONS;
